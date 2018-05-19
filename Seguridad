@@ -1,0 +1,24 @@
+package seguridad;
+
+/**
+ *
+ * @author Daniel Campos
+ */
+public class Seguridad {
+    
+    String tipo;
+    String Prioridad;
+    String Estado;
+    String nombreVentanilla;
+    public int numero;
+    
+    public Seguridad( String tipo, String prioridad, String estado, String nombreVentanilla){
+        this.tipo = tipo;
+        this.Prioridad = prioridad;
+        this.Estado = estado;
+        this.nombreVentanilla = nombreVentanilla;
+        
+    }
+    
+
+}
