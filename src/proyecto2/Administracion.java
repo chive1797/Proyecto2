@@ -3,78 +3,428 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Estructuras;
+
+package Interfaz;
+
+import Estructuras.Ficha;
+import Estructuras.LQueue;
+import Estructuras.LinkedList;
+import Estructuras.Ventanillas;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Rolo
  */
-public class Administracion {
-    //Atributos
-    
-    public int TotalClientesEntrega;
-    public int TotalClientesVentanillas;
-    public int TotalClientesSeguridad;
-    public int TotalAdultoMayor;
-    public int TotalDiscapacitados;
-    public int TotalEmbarazadas;
-    public int TotalRegular;
-    public int TotalPerecedero;
-    public int TotalNoPerecedero;
-       
-    //Constructor
-    
-    public Administracion(){
-        this.TotalClientesEntrega = 0;
-        this.TotalClientesSeguridad = 0;
-        this.TotalClientesVentanillas = 0;
-        this.TotalPerecedero = 0;
-        this.TotalNoPerecedero = 0;
+public class Administracion extends javax.swing.JFrame {
+    String ContadorNoPerece;
+    String ContadorPerecede;
+    String ContadorAdultoMayorNoPerece;
+    String ContadorAdultoMayorPerecede;
+    String ContadorAdultoMayorGene;
+    String ContadorEmbarazadaNoPerece;
+    String ContadorEmbarazadaPerecede;
+    String ContadorEmbarazadaGene;
+    String ContadorRegularNoPerece;        
+    String ContadorRegularPerecede;
+    String ContadorRegularGene;
+    String ContadorDiscapacitadoNoPerece;
+    String ContadorDiscapacitadoPerecede;
+    String ContadorDiscapacitadoGene;
+    LQueue lista1;
+    LQueue lista2;
+    LinkedList AuxVentanillasNoPer;
+    LinkedList AuxVentanillasPer;
+    DefaultListModel listboxNoPer = new DefaultListModel();
+    DefaultListModel listboxPer = new DefaultListModel();
+
+    /** Creates new form Administracion */
+    public Administracion() {
+        initComponents();
+        lista1 = new LQueue();
+        lista2 = new LQueue();
+        AuxVentanillasNoPer= new LinkedList();
+        AuxVentanillasPer= new LinkedList();
+        NoPerAdmi.setModel(listboxNoPer);
+        PerAdmi.setModel(listboxPer);
+        
     }
     
     
-    // Métodos
+    public void copiasContadores3(int ContadorNoPerecedero,
+    int ContadorPerecedero, 
+    int ContadorAdultoMayorNoPerecedero, 
+    int ContadorAdultoMayorPerecedero,
+    int ContadorViejitosGeneral,
+    int ContadorEmbarazadaNoPerecedero,
+    int ContadorEmbarazadaPerecedero,
+    int ContadorEmbarazadaGeneral,
+    int ContadorRegularNoPerecedero,        
+    int ContadorRegularPerecedero,
+    int ContadorRegularGeneral,
+    int ContadorDiscapacitadoNoPerecedero,
+    int ContadorDiscapacitadoPerecedero,
+    int ContadorDiscapacitadoGeneral){
+        
+    ContadorNoPerece= ContadorNoPerecedero+"";
     
-    public int GetTotalClientesCheckin(){
-        return this.TotalClientesEntrega;    
+    ContadorPerecede= ContadorPerecedero+"";
+    ContadorAdultoMayorNoPerece=ContadorAdultoMayorNoPerecedero+"";
+    TotalTerEdadNoPer.setText(ContadorAdultoMayorNoPerece);
+    
+    ContadorAdultoMayorPerecede=ContadorAdultoMayorPerecedero+"";
+    TotalTerEdadPer.setText(ContadorAdultoMayorPerecede);
+    
+    ContadorAdultoMayorGene=ContadorViejitosGeneral+"";
+    TotalTerEdadG.setText(ContadorAdultoMayorGene);
+    
+    ContadorEmbarazadaNoPerece=ContadorEmbarazadaNoPerecedero+"";
+    TotalEmbNoPer.setText(ContadorEmbarazadaNoPerece);
+    
+    ContadorEmbarazadaPerecede=ContadorEmbarazadaPerecedero+"";
+    TotalEmbPer.setText(ContadorEmbarazadaPerecede);
+    
+    ContadorEmbarazadaGene=ContadorEmbarazadaGeneral+"";
+    TotalEmbG.setText(ContadorEmbarazadaGene);
+    
+    ContadorRegularNoPerece=ContadorRegularNoPerecedero+"";
+    TotalRegNoPer.setText(ContadorRegularNoPerece);
+    
+    ContadorRegularPerecede=ContadorRegularPerecedero+"";
+    TotalRegPer.setText(ContadorRegularPerecede);
+    
+    ContadorRegularGene=ContadorRegularGeneral+"";
+    TotalRegG.setText(ContadorRegularGene);
+    
+    ContadorDiscapacitadoNoPerece=ContadorDiscapacitadoNoPerecedero+"";
+    TotalDiscNoPer.setText(ContadorDiscapacitadoNoPerece);
+    
+    ContadorDiscapacitadoPerecede=ContadorDiscapacitadoPerecedero+"";
+    TotalDiscPer.setText(ContadorDiscapacitadoPerecede);
+    
+    ContadorDiscapacitadoGene=ContadorDiscapacitadoGeneral+"";
+    TotalDiscG.setText(ContadorDiscapacitadoGene);
+    Ventanillas vd = new Ventanillas();
+    String  total = vd.ShowClientes()+"";
+    TotalEntrga.setText(total);
+        
     }
+    public void GetVentanillaas(LQueue listaNoPer, LQueue listaPer){
+        lista1= listaNoPer;
+        lista2=listaPer;
+        
+        while(lista1.isEmpty()==false){
+            Ventanillas nueva = (Ventanillas) lista1.first();
+            listboxNoPer.addElement(nueva.verName());
+            AuxVentanillasNoPer.append(nueva);
+            lista1.dequeue();   
+        }
+        while(lista2.isEmpty()==false){
+            Ventanillas nueva1 = (Ventanillas) lista2.first();
+            listboxPer.addElement(nueva1.verName());
+            AuxVentanillasPer.append(nueva1);
+            lista2.dequeue();
+        }
+        
+        
+        
     
-    public int GetTotalClientesVentanillas89(){
-        return this.TotalClientesVentanillas;
+        
     }
-    
-    public int GetTotalClientesSeguridad(){
-        return this.TotalClientesSeguridad;
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        labeltotalentrega = new javax.swing.JLabel();
+        totalventanillas = new javax.swing.JLabel();
+        totalseguridad = new javax.swing.JLabel();
+        totalembarazada = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        ClientesEntrega = new javax.swing.JLabel();
+        ClientesVentanillas = new javax.swing.JLabel();
+        ClientesSeguridad = new javax.swing.JLabel();
+        TotalEmbPer = new javax.swing.JLabel();
+        TotalEmbNoPer = new javax.swing.JLabel();
+        TotalEmbG = new javax.swing.JLabel();
+        TotalDiscPer = new javax.swing.JLabel();
+        TotalDiscNoPer = new javax.swing.JLabel();
+        TotalDiscG = new javax.swing.JLabel();
+        TotalTerEdadPer = new javax.swing.JLabel();
+        TotalTerEdadNoPer = new javax.swing.JLabel();
+        TotalTerEdadG = new javax.swing.JLabel();
+        TotalRegPer = new javax.swing.JLabel();
+        TotalRegNoPer = new javax.swing.JLabel();
+        TotalRegG = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        TotalEntrga = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        PerAdmi = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        NoPerAdmi = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        PerNumeroVentana = new javax.swing.JLabel();
+        NoPerNumeroVentana = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labeltotalentrega.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labeltotalentrega.setText("Total clientes atendidos en Entrega:");
+        getContentPane().add(labeltotalentrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        totalventanillas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        totalventanillas.setText("Total de Clientes atendidos por Ventanillas:");
+        getContentPane().add(totalventanillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 270, -1));
+
+        totalseguridad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        totalseguridad.setText("Total de paquetes atendidos en Seguridad:");
+        getContentPane().add(totalseguridad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 270, -1));
+
+        totalembarazada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        totalembarazada.setText("Total de Embarazadas");
+        getContentPane().add(totalembarazada, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 140, -1));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Perecederos:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 80, -1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("No perecederos:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("General:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 60, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Total de Discapacitados");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 150, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Perecederos:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 80, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("No perecederos:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 474, -1, 20));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("General:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Total de Adultos Mayores");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 160, 20));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Perecederos:");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("No perecederos:");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 340, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("General:");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Total de Regulares");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 120, -1));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Perecederos:");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel14.setText("No perecederos:");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 470, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("General:");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 500, -1, -1));
+        getContentPane().add(ClientesEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 110, 30));
+        getContentPane().add(ClientesVentanillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 90, 20));
+        getContentPane().add(ClientesSeguridad, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 100, 20));
+        getContentPane().add(TotalEmbPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 50, 20));
+        getContentPane().add(TotalEmbNoPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 60, 20));
+        getContentPane().add(TotalEmbG, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 60, 20));
+        getContentPane().add(TotalDiscPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 60, 20));
+        getContentPane().add(TotalDiscNoPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, 60, 20));
+        getContentPane().add(TotalDiscG, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 510, 40, 20));
+        getContentPane().add(TotalTerEdadPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 60, 20));
+        getContentPane().add(TotalTerEdadNoPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 80, 20));
+        getContentPane().add(TotalTerEdadG, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 50, 20));
+        getContentPane().add(TotalRegPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 60, 20));
+        getContentPane().add(TotalRegNoPer, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 470, 50, 20));
+        getContentPane().add(TotalRegG, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 500, 50, 20));
+
+        jLabel16.setText("Perecederos");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 70, 20));
+
+        jLabel17.setText("No perecederos");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 80, 20));
+        getContentPane().add(TotalEntrga, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 50, 20));
+
+        jScrollPane1.setViewportView(PerAdmi);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 120, 30));
+
+        jScrollPane2.setViewportView(NoPerAdmi);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 120, 30));
+
+        jButton1.setText("Ver");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, -1, -1));
+
+        jButton2.setText("Ver");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
+        getContentPane().add(PerNumeroVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 60, 20));
+        getContentPane().add(NoPerNumeroVentana, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 40, 20));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        int SelecNoPer =PerAdmi.getSelectedIndex();
+        AuxVentanillasNoPer.goToPos(SelecNoPer);
+        Ventanillas Ventana = (Ventanillas) AuxVentanillasNoPer.getElement();
+        String x=Ventana.ShowClientes()+"";
+        PerNumeroVentana.setText(x);
+        
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        int SelecNoPer =NoPerAdmi.getSelectedIndex();
+        AuxVentanillasPer.goToPos(SelecNoPer);
+        Ventanillas Ventana = (Ventanillas) AuxVentanillasPer.getElement();
+        String x=Ventana.ShowClientes()+"";
+        NoPerNumeroVentana.setText(x);
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Administracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Administracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Administracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Administracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Administracion().setVisible(true);
+            }
+        });
     }
-    
-    public int GetTotalEconomico(){
-       return this.TotalPerecedero;
-    }
-    
-    public int GetTotalEjecutivo(){
-        return this.TotalNoPerecedero;
-    }
-    
-    
-    public void SumaCheckin(){
-        this.TotalClientesEntrega++;     
-    }
-    
-    public void SumaVentanillas(){
-        this.TotalClientesVentanillas++;
-    }
-    
-    public void SumaSeguridad(){
-        this.TotalClientesSeguridad++;
-    }
-    
-    public void SumaEconomico(){
-        this.TotalClientesSeguridad++;
-    }
-    
-    public void SumaEjecutivo(){
-        this.TotalNoPerecedero++;
-    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ClientesEntrega;
+    private javax.swing.JLabel ClientesSeguridad;
+    private javax.swing.JLabel ClientesVentanillas;
+    private javax.swing.JList<String> NoPerAdmi;
+    private javax.swing.JLabel NoPerNumeroVentana;
+    private javax.swing.JList<String> PerAdmi;
+    private javax.swing.JLabel PerNumeroVentana;
+    private javax.swing.JLabel TotalDiscG;
+    private javax.swing.JLabel TotalDiscNoPer;
+    private javax.swing.JLabel TotalDiscPer;
+    private javax.swing.JLabel TotalEmbG;
+    private javax.swing.JLabel TotalEmbNoPer;
+    private javax.swing.JLabel TotalEmbPer;
+    private javax.swing.JLabel TotalEntrga;
+    private javax.swing.JLabel TotalRegG;
+    private javax.swing.JLabel TotalRegNoPer;
+    private javax.swing.JLabel TotalRegPer;
+    private javax.swing.JLabel TotalTerEdadG;
+    private javax.swing.JLabel TotalTerEdadNoPer;
+    private javax.swing.JLabel TotalTerEdadPer;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labeltotalentrega;
+    private javax.swing.JLabel totalembarazada;
+    private javax.swing.JLabel totalseguridad;
+    private javax.swing.JLabel totalventanillas;
+    // End of variables declaration//GEN-END:variables
 
 }
-
